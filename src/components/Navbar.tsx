@@ -1,14 +1,52 @@
+import React from "react";
+import Image from "next/image";
+import NextLink from "next/link";
+// import MetamaskConnectButton from "./MetamaskConnectButton";
+import {
+  Container,
+  Button,
+  Box,
+  Center,
+  Flex,
+  Spacer,
+  Link,
+} from "@chakra-ui/react";
 const Navbar = () => {
   return (
-    <div>
-      <h3>products</h3>
-      <h3>industries</h3>
-      <h3>Join the DAO</h3>
-      <h3>Whitepaper</h3>
-      <h3>About</h3>
-      <h3>Contact</h3>
-      <h3>Launch App</h3>
-    </div>
+    <Box pt={4} pb={4} bg="#0F172A" color="white">
+      <Container maxW={1500}>
+        <Flex>
+          <Center gap={2}>
+            <Image src="/logo.png" alt="logo" width={50} height={50} />
+            <NextLink href="/" passHref>
+              <Link fontSize="2xl">PeerDao</Link>
+            </NextLink>
+          </Center>
+
+          <Spacer />
+
+          <Center gap={12}>
+            <NextLink href="/" passHref>
+              <Link fontSize="2xl">About PeerDao</Link>
+            </NextLink>
+
+            <NextLink href="/" passHref>
+              <Link fontSize="2xl">Proposals</Link>
+            </NextLink>
+
+            <NextLink href="/" passHref>
+              <Link fontSize="2xl">Stream videos</Link>
+            </NextLink>
+
+            <NextLink href="/" passHref>
+              <Button color="black">Connect wallet</Button>
+            </NextLink>
+
+            {/* <MetamaskConnectButton /> */}
+          </Center>
+        </Flex>
+      </Container>
+    </Box>
   );
 };
 

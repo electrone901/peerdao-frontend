@@ -1,10 +1,17 @@
 import React from "react";
+import Image from "next/image";
 import {
   Card,
   CardBody,
   CardHeader,
   Container,
   Heading,
+  Button,
+  Text,
+  Box,
+  Center,
+  Flex,
+  Spacer,
 } from "@chakra-ui/react";
 import Head from "next/head";
 import MetamaskConnectButton from "../components/MetamaskConnectButton";
@@ -44,38 +51,122 @@ const Home = () => {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <Container
-        display="flex"
-        alignItems="center"
-        justifyContent="center"
-        height="100%"
-      >
-        <Card maxWidth="500" width="100%" alignItems="stretch">
-          <CardHeader paddingBottom={0}>
-            <Heading as="h1" textAlign="center">
-              peerdao
-            </Heading>
-            <div
-              style={{
-                backgroundColor: "#e2e2e2",
-                height: "1px",
-                marginTop: 20,
-              }}
-            />
-          </CardHeader>
-          <CardBody display="flex" alignItems="flex-end">
-            <MetamaskConnectButton style={{ width: "100%" }} />
-          </CardBody>
-        </Card>
-        <style jsx global>{`
-          body {
-            height: 100%;
-          }
-          #__next {
-            height: 100%;
-          }
-        `}</style>
-      </Container>
+      <section className="hero">
+        <Box bg="#1E293B" h={563} color="white" p={16}>
+          <Text fontSize="2xl" style={{ textAlign: "center" }}>
+            PERMANENTLY CREATE A REPOSITORY OF
+          </Text>
+          <Text fontSize="2xl" style={{ textAlign: "center" }}>
+            GREAT VIDEO CONTENT
+          </Text>
+          <Text>
+            Be a part of preserving video content for future generations. Access
+            a diverse library of video content, network and collaborate with
+            other content creators. Earn rewards for your contributions to the
+            DAO. Get started now by becoming a member of PeerDao and help us
+            build a future where video content is preserved for all to enjoy.
+          </Text>
+
+          <Center alignItems="center" gap={4}>
+            <Button bg="#4F46E5">Join DAO</Button>
+            <Button bg="#334155">Get PED tokens</Button>
+          </Center>
+        </Box>
+      </section>
+
+      <section className="overview">
+        <Box bg="#f5f7fb" h={594} color="black">
+          <Flex>
+            <Box>
+              <Image src="/video.png" alt="video" width={894} height={1485} />
+            </Box>
+            <Box p={8} pt={8}>
+              <Text fontSize="4xl" style={{ textAlign: "center" }} pb={8}>
+                What is PEERDAO?
+              </Text>
+              <Text fontSize="2xl" pb={4}>
+                PeerDao is a decentralized autonomous organization dedicated to
+                preserving video content for generations to come. It is a
+                decentralized platform for content creators where they
+                contribute to create a permanent repository of great content and
+                members are awarded based on their contributions.
+              </Text>
+
+              <Text fontSize="2xl" pb={4}>
+                The platform aims to run itself automatically by using the funds
+                gotten from the streaming platform to continously pay for
+                storage on filecoin.
+              </Text>
+              <Text fontSize="2xl" pb={4}>
+                Our mission is to gather content from DAO members and curate it
+                into a permanent archive that can be shared and ensured for
+                years to come. We believe that video content is a powerful tool
+                for storytelling and should be protected and preserved for
+                future generations.
+              </Text>
+            </Box>
+          </Flex>
+        </Box>
+      </section>
+
+      <section className="tokens">
+        <Box bg="#1E293B" h={563} color="white" p={8}>
+          <Text fontSize="2xl" style={{ textAlign: "center" }}>
+            Get PED Tokens
+          </Text>
+          <Text fontSize="xl" style={{ textAlign: "center" }}>
+            With PED coins, you can seamlessly stream and contribute to creating
+            a
+          </Text>
+          <Text fontSize="xl" style={{ textAlign: "center" }}>
+            permanent library of great videos
+          </Text>
+
+          <Center alignItems="center" mt={4}>
+            <Card w={651}>
+              <CardHeader>
+                <Heading size="md">Client Report</Heading>
+              </CardHeader>
+
+              <CardBody>
+                <Box>
+                  <Heading size="xs" textTransform="uppercase">
+                    Summary
+                  </Heading>
+                  <Text pt="2" fontSize="sm">
+                    View a summary of all your clients over the last month.
+                  </Text>
+                </Box>
+                <Box>
+                  <Heading size="xs" textTransform="uppercase">
+                    Overview
+                  </Heading>
+                  <Text pt="2" fontSize="sm">
+                    Check out the overview of your clients.
+                  </Text>
+                </Box>
+                <Box>
+                  <Heading size="xs" textTransform="uppercase">
+                    Analysis
+                  </Heading>
+                  <Text pt="2" fontSize="sm">
+                    See a detailed analysis of all your business clients.
+                  </Text>
+                </Box>
+              </CardBody>
+            </Card>
+          </Center>
+        </Box>
+      </section>
+
+      <section className="popular_videos">
+        <Image
+          src="/placeholder.png"
+          alt="placeholder.png"
+          width={1500}
+          height={1500}
+        />
+      </section>
     </>
   );
 };

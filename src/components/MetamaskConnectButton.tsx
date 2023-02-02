@@ -22,7 +22,6 @@ const MetamaskConnectButton: React.FC<{
 }> = ({ style }) => {
   const { address, setAddress, disconnect } = useWallet();
   const [metamaskUnavailable, setMetamaskUnavailable] = React.useState(false);
-  // const [open, setOpen] = React.useState(false);
 
   React.useEffect(() => {
     if (!window.ethereum) {
@@ -43,7 +42,7 @@ const MetamaskConnectButton: React.FC<{
       <Button
         onClick={disconnect}
         style={style}
-        colorScheme={window.ethereum.isMetaMask ? "orange" : "blue"}
+        colorScheme={window.ethereum.isMetaMask ? "blue" : "blue"}
       >
         {address}
       </Button>

@@ -52,9 +52,9 @@ export const MetamaskProvider: React.FC<{ children: React.ReactNode }> = ({
     }
   }, [address, router]);
 
-  React.useEffect(() => {
-    redirectOnAction();
-  }, [redirectOnAction]);
+  // React.useEffect(() => {
+  //   redirectOnAction();
+  // }, [redirectOnAction]);
 
   React.useEffect(() => {
     if (window.ethereum) {

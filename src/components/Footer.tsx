@@ -1,17 +1,28 @@
+import React from "react";
+import Image from "next/image";
+import {
+  Card,
+  CardBody,
+  CardHeader,
+  Container,
+  Heading,
+  Button,
+  Text,
+  Box,
+  Center,
+  Flex,
+  Spacer,
+  Link,
+} from "@chakra-ui/react";
 const Footer = () => {
   return (
-    <div className="footer">
-      <div className="images">
-        <h2>email image goes here</h2>
-        <h2>linkedIn image goes here</h2>
-        <h2>Github image goes here</h2>
-        <h2>twitter image goes here</h2>
-      </div>
-
-      <div className="support">
-        <h3>email</h3>
-      </div>
-    </div>
+    <Box pt={4} pb={4} bg="#0F172A" color="white">
+      <Center gap={2}>
+        <Image src="/logo.png" alt="logo" width={50} height={50} />
+        <Text fontSize="2xl">PeerDao</Text>
+        <Text fontSize="2xl">2023</Text>
+      </Center>
+    </Box>
   );
 };
 
