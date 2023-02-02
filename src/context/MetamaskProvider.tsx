@@ -1,5 +1,5 @@
 import { useRouter } from "next/router";
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 type MetamaskMaskProviderValues = {
   address: string | null;
@@ -27,7 +27,8 @@ export const MetamaskProvider: React.FC<{ children: React.ReactNode }> = ({
   const [address, setAddress] = React.useState<string | null>(null);
 
   React.useEffect(() => {
-    if (window.ethereum && window.ethereum.selectedAddress) {
+
+    if (typeof window.ethereum !== "undefined" && window.ethereum && window.ethereum.selectedAddress) {
       setAddress(window.ethereum.selectedAddress);
     }
   }, []);
@@ -57,7 +58,7 @@ export const MetamaskProvider: React.FC<{ children: React.ReactNode }> = ({
   // }, [redirectOnAction]);
 
   React.useEffect(() => {
-    if (window.ethereum) {
+    if (typeof window.ethereum !== "undefined" && window.ethereum) {
       window.ethereum.on("accountsChanged", (accounts: string[]) => {
         const changedAddress = accounts[0] ?? null;
         if (!changedAddress) {
@@ -83,6 +84,12 @@ export const MetamaskProvider: React.FC<{ children: React.ReactNode }> = ({
     setAddress(null);
   };
 
+  const[loaded, setLoaded] = useState(false);
+
+  useEffect(() => {
+    setLoaded(true);
+  }, [])
+
   return (
     <MetamaskContext.Provider
       value={{
@@ -91,7 +98,7 @@ export const MetamaskProvider: React.FC<{ children: React.ReactNode }> = ({
         disconnect: handleDisconnect,
       }}
     >
-      {children}
+      {loaded ? children : null}
     </MetamaskContext.Provider>
   );
 };
