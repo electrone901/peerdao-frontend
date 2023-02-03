@@ -30,7 +30,7 @@ const Navbar = () => {
               <Link fontSize="2xl">About PeerDao</Link>
             </NextLink>
 
-            <NextLink href="/" passHref>
+            <NextLink href="/proposal" passHref>
               <Link fontSize="2xl">Proposals</Link>
             </NextLink>
 
