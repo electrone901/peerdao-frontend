@@ -117,7 +117,9 @@ const Home = () => {
   ];
 
   const [loading, setLoading] = React.useState(true);
-  const { address } = useWallet();
+  const { address, daoContract, tokenContract } = useWallet();
+  console.log("__🚀 tokenContract", tokenContract);
+  console.log("_____🚀daoContract", daoContract);
 
   React.useEffect(() => {
     if (window.ethereum) {
@@ -137,6 +139,24 @@ const Home = () => {
   if (loading) {
     return <></>;
   }
+
+  const handleJoinDao = async () => {
+    const DAOContractAddress = "0xdeaF0f54F0E9897F53e7bFdc222419F2cEC4F5d1";
+
+    if (daoContract && tokenContract) {
+      const _joinAmount = 50 * (10 * 18);
+      const joinAmount = BigInt(_joinAmount);
+
+      // const joinAmount = 1;
+      // approving the dao contract to get PED tokens from the user
+      const tokenRes = await tokenContract.approve(
+        DAOContractAddress,
+        _joinAmount
+      );
+      const daoRes = await daoContract.joinDAO("Content Creator");
+      console.log("daoRes", daoRes);
+    }
+  };
 
   return (
     <>
@@ -200,6 +220,7 @@ const Home = () => {
                 width: "300px",
                 height: "56px",
               }}
+              onClick={handleJoinDao}
             >
               Join DAO
             </Button>

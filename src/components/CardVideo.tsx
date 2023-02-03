@@ -12,7 +12,7 @@ import {
 
 function CardVideo({ video }) {
   const [amount, setAmount] = useState(0);
-  console.log({ amount });
+  // console.log({ amount });
   return (
     <Card maxW="sm" p={1}>
       <CardBody>

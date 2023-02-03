@@ -12,10 +12,26 @@ import {
   FormLabel,
   Input,
 } from "@chakra-ui/react";
+const { ethers } = require("ethers");
+import { useWallet } from "../context/MetamaskProvider";
 
 function PEDTokensForm(props) {
   const [amount, setAmount] = useState(0);
-  console.log({ amount });
+  const { daoContract, tokenContract } = useWallet();
+
+  const handleBuyTokens = async () => {
+    if (tokenContract && amount) {
+      const res = await tokenContract.buyToken({
+        value: ethers.utils.parseUnits(amount, "ether"),
+      });
+      console.log(
+        "🚀 ~ file: PEDTokensForm.tsx:29 ~ handleBuyTokens ~ res",
+        res
+      );
+    }
+    // display success message
+  };
+
   return (
     <Box bg="#1E293B" h={563} color="white" p={8}>
       <Text fontSize="2xl" style={{ textAlign: "center" }} pt={10}>
@@ -50,7 +66,7 @@ function PEDTokensForm(props) {
                 />
               </FormControl>
               <Center pt={4}>
-                <Button>Get PED coin</Button>
+                <Button onClick={handleBuyTokens}>Get PED coin</Button>
               </Center>
             </Box>
           </CardBody>

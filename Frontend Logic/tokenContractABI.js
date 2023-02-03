@@ -1,4 +1,4 @@
-export const tokencontractabi = [
+export const TOKEN_CONTRACT_ABI  = [
 	{
 		"inputs": [
 			{
