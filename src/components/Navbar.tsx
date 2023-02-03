@@ -1,7 +1,7 @@
 import React from "react";
 import Image from "next/image";
 import NextLink from "next/link";
-// import MetamaskConnectButton from "./MetamaskConnectButton";
+import MetamaskConnectButton from "./MetamaskConnectButton";
 import {
   Container,
   Button,
@@ -10,6 +10,7 @@ import {
   Flex,
   Spacer,
   Link,
+  Text,
 } from "@chakra-ui/react";
 const Navbar = () => {
   return (
@@ -18,8 +19,9 @@ const Navbar = () => {
         <Flex>
           <Center gap={2}>
             <Image src="/logo.png" alt="logo" width={50} height={50} />
+
             <NextLink href="/" passHref>
-              <Link fontSize="2xl">PeerDao</Link>
+              <Text fontSize="2xl">PeerDao</Text>
             </NextLink>
           </Center>
 
@@ -27,22 +29,18 @@ const Navbar = () => {
 
           <Center gap={12}>
             <NextLink href="/" passHref>
-              <Link fontSize="2xl">About PeerDao</Link>
+              <Text fontSize="2xl">About PeerDao</Text>
             </NextLink>
 
             <NextLink href="/" passHref>
-              <Link fontSize="2xl">Proposals</Link>
+              <Text fontSize="2xl">Proposals</Text>
             </NextLink>
 
             <NextLink href="/" passHref>
-              <Link fontSize="2xl">Stream videos</Link>
+              <Text fontSize="2xl">Stream videos</Text>
             </NextLink>
 
-            <NextLink href="/" passHref>
-              <Button color="black">Connect wallet</Button>
-            </NextLink>
-
-            {/* <MetamaskConnectButton /> */}
+            <MetamaskConnectButton />
           </Center>
         </Flex>
       </Container>

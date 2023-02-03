@@ -1,26 +1,121 @@
 import React from "react";
 import Image from "next/image";
-import {
-  Card,
-  CardBody,
-  CardHeader,
-  Container,
-  Heading,
-  Button,
-  Text,
-  Box,
-  Center,
-  Flex,
-  Spacer,
-} from "@chakra-ui/react";
+import { Button, Text, Box, Center, Flex, SimpleGrid } from "@chakra-ui/react";
 import Head from "next/head";
-import MetamaskConnectButton from "../components/MetamaskConnectButton";
-import { useRouter } from "next/router";
+import PEDTokensForm from "@/components/PEDTokensForm";
+import CardVideo from "@/components/CardVideo";
 import { useWallet } from "../context/MetamaskProvider";
 import * as R from "ramda";
 
 const Home = () => {
-  const router = useRouter();
+  const data = [
+    {
+      image: "/p1.png",
+      avatar: "ysong.png",
+      wallet: "3j98t1W97Xl0...",
+      floor: "0.14 PED",
+      volume: "1,054 PED",
+    },
+    {
+      image: "/ysong.png",
+      avatar: "ysong.png",
+      wallet: "3j98t1W97Xl0...",
+      floor: "0.14 PED",
+      volume: "1,054 PED",
+    },
+    {
+      image: "/p1.png",
+      avatar: "ysong.png",
+      wallet: "3j98t1W97Xl0...",
+      floor: "0.14 PED",
+      volume: "1,054 PED",
+    },
+    {
+      image: "/ysong.png",
+      avatar: "ysong.png",
+      wallet: "3j98t1W97Xl0...",
+      floor: "0.14 PED",
+      volume: "1,054 PED",
+    },
+    {
+      image: "/p1.png",
+      avatar: "ysong.png",
+      wallet: "3j98t1W97Xl0...",
+      floor: "0.14 PED",
+      volume: "1,054 PED",
+    },
+    {
+      image: "/ysong.png",
+      avatar: "ysong.png",
+      wallet: "3j98t1W97Xl0...",
+      floor: "0.14 PED",
+      volume: "1,054 PED",
+    },
+    {
+      image: "/p1.png",
+      avatar: "ysong.png",
+      wallet: "3j98t1W97Xl0...",
+      floor: "0.14 PED",
+      volume: "1,054 PED",
+    },
+    {
+      image: "/ysong.png",
+      avatar: "ysong.png",
+      wallet: "3j98t1W97Xl0...",
+      floor: "0.14 PED",
+      volume: "1,054 PED",
+    },
+    {
+      image: "/p1.png",
+      avatar: "ysong.png",
+      wallet: "3j98t1W97Xl0...",
+      floor: "0.14 PED",
+      volume: "1,054 PED",
+    },
+    {
+      image: "/ysong.png",
+      avatar: "ysong.png",
+      wallet: "3j98t1W97Xl0...",
+      floor: "0.14 PED",
+      volume: "1,054 PED",
+    },
+    {
+      image: "/p1.png",
+      avatar: "ysong.png",
+      wallet: "3j98t1W97Xl0...",
+      floor: "0.14 PED",
+      volume: "1,054 PED",
+    },
+    {
+      image: "/ysong.png",
+      avatar: "ysong.png",
+      wallet: "3j98t1W97Xl0...",
+      floor: "0.14 PED",
+      volume: "1,054 PED",
+    },
+    {
+      image: "/p1.png",
+      avatar: "ysong.png",
+      wallet: "3j98t1W97Xl0...",
+      floor: "0.14 PED",
+      volume: "1,054 PED",
+    },
+    {
+      image: "/ysong.png",
+      avatar: "ysong.png",
+      wallet: "3j98t1W97Xl0...",
+      floor: "0.14 PED",
+      volume: "1,054 PED",
+    },
+    {
+      image: "/p1.png",
+      avatar: "ysong.png",
+      wallet: "3j98t1W97Xl0...",
+      floor: "0.14 PED",
+      volume: "1,054 PED",
+    },
+  ];
+
   const [loading, setLoading] = React.useState(true);
   const { address } = useWallet();
 
@@ -52,14 +147,40 @@ const Home = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <section className="hero">
-        <Box bg="#1E293B" h={563} color="white" p={16}>
-          <Text fontSize="2xl" style={{ textAlign: "center" }}>
+        <Box bg="#1E293B" h={660} color="white" p={16}>
+          <Text
+            fontSize="2xl"
+            pt={20}
+            style={{
+              textAlign: "center",
+              fontWeight: "700",
+              fontSize: "48px",
+              lineHeight: "48px",
+            }}
+          >
             PERMANENTLY CREATE A REPOSITORY OF
           </Text>
-          <Text fontSize="2xl" style={{ textAlign: "center" }}>
+          <Text
+            fontSize="2xl"
+            pt={6}
+            style={{
+              textAlign: "center",
+              fontWeight: "700",
+              fontSize: "48px",
+              lineHeight: "48px",
+            }}
+          >
             GREAT VIDEO CONTENT
           </Text>
-          <Text>
+          <Text
+            pt={8}
+            style={{
+              textAlign: "center",
+              fontWeight: "500",
+              fontSize: "24px",
+              lineHeight: "32px",
+            }}
+          >
             Be a part of preserving video content for future generations. Access
             a diverse library of video content, network and collaborate with
             other content creators. Earn rewards for your contributions to the
@@ -67,24 +188,70 @@ const Home = () => {
             build a future where video content is preserved for all to enjoy.
           </Text>
 
-          <Center alignItems="center" gap={4}>
-            <Button bg="#4F46E5">Join DAO</Button>
-            <Button bg="#334155">Get PED tokens</Button>
+          <Center alignItems="center" gap={4} pt={12}>
+            <Button
+              bg="#4F46E5"
+              style={{
+                padding: "16px",
+                textAlign: "center",
+                fontWeight: "500",
+                fontSize: "24px",
+                lineHeight: "32px",
+                width: "300px",
+                height: "56px",
+              }}
+            >
+              Join DAO
+            </Button>
+            <Button
+              bg="#334155"
+              style={{
+                padding: "16px",
+                textAlign: "center",
+                fontWeight: "500",
+                fontSize: "24px",
+                lineHeight: "32px",
+                width: "300px",
+                height: "56px",
+              }}
+            >
+              Get PED tokens
+            </Button>
           </Center>
         </Box>
       </section>
 
       <section className="overview">
-        <Box bg="#f5f7fb" h={594} color="black">
-          <Flex>
-            <Box>
-              <Image src="/video.png" alt="video" width={894} height={1485} />
-            </Box>
-            <Box p={8} pt={8}>
-              <Text fontSize="4xl" style={{ textAlign: "center" }} pb={8}>
+        <Flex bg="#f5f7fb" color="black" height={535}>
+          <Box
+            style={{
+              width: "794px",
+            }}
+            mt={-1}
+          >
+            <Image src="/video.png" alt="video" width={590} height={490} />
+          </Box>
+
+          <Box
+            style={{
+              width: "100%",
+            }}
+          >
+            <Box p={10}>
+              <Text fontSize="4xl" style={{ textAlign: "center" }} p={8}>
                 What is PEERDAO?
               </Text>
-              <Text fontSize="2xl" pb={4}>
+
+              <Text
+                fontSize="2xl"
+                pb={8}
+                style={{
+                  fontWeight: "600",
+                  fontSize: "18px",
+                  lineHeight: "28px",
+                  textAlign: "justify",
+                }}
+              >
                 PeerDao is a decentralized autonomous organization dedicated to
                 preserving video content for generations to come. It is a
                 decentralized platform for content creators where they
@@ -92,12 +259,29 @@ const Home = () => {
                 members are awarded based on their contributions.
               </Text>
 
-              <Text fontSize="2xl" pb={4}>
+              <Text
+                fontSize="2xl"
+                pb={4}
+                style={{
+                  fontWeight: "600",
+                  fontSize: "18px",
+                  lineHeight: "28px",
+                  textAlign: "justify",
+                }}
+              >
                 The platform aims to run itself automatically by using the funds
                 gotten from the streaming platform to continously pay for
                 storage on filecoin.
               </Text>
-              <Text fontSize="2xl" pb={4}>
+              <Text
+                fontSize="2xl"
+                style={{
+                  fontWeight: "600",
+                  fontSize: "18px",
+                  lineHeight: "28px",
+                  textAlign: "justify",
+                }}
+              >
                 Our mission is to gather content from DAO members and curate it
                 into a permanent archive that can be shared and ensured for
                 years to come. We believe that video content is a powerful tool
@@ -105,67 +289,34 @@ const Home = () => {
                 future generations.
               </Text>
             </Box>
-          </Flex>
-        </Box>
+          </Box>
+        </Flex>
       </section>
 
       <section className="tokens">
-        <Box bg="#1E293B" h={563} color="white" p={8}>
-          <Text fontSize="2xl" style={{ textAlign: "center" }}>
-            Get PED Tokens
-          </Text>
-          <Text fontSize="xl" style={{ textAlign: "center" }}>
-            With PED coins, you can seamlessly stream and contribute to creating
-            a
-          </Text>
-          <Text fontSize="xl" style={{ textAlign: "center" }}>
-            permanent library of great videos
-          </Text>
-
-          <Center alignItems="center" mt={4}>
-            <Card w={651}>
-              <CardHeader>
-                <Heading size="md">Client Report</Heading>
-              </CardHeader>
-
-              <CardBody>
-                <Box>
-                  <Heading size="xs" textTransform="uppercase">
-                    Summary
-                  </Heading>
-                  <Text pt="2" fontSize="sm">
-                    View a summary of all your clients over the last month.
-                  </Text>
-                </Box>
-                <Box>
-                  <Heading size="xs" textTransform="uppercase">
-                    Overview
-                  </Heading>
-                  <Text pt="2" fontSize="sm">
-                    Check out the overview of your clients.
-                  </Text>
-                </Box>
-                <Box>
-                  <Heading size="xs" textTransform="uppercase">
-                    Analysis
-                  </Heading>
-                  <Text pt="2" fontSize="sm">
-                    See a detailed analysis of all your business clients.
-                  </Text>
-                </Box>
-              </CardBody>
-            </Card>
-          </Center>
-        </Box>
+        <PEDTokensForm />
       </section>
 
       <section className="popular_videos">
-        <Image
-          src="/placeholder.png"
-          alt="placeholder.png"
-          width={1500}
-          height={1500}
-        />
+        <Text
+          fontSize="4xl"
+          style={{ fontWeight: "500", fontSize: "24px", lineHeight: "32px" }}
+          pl={12}
+          pt={10}
+        >
+          Popular videos
+        </Text>
+        <SimpleGrid
+          p={10}
+          spacing={6}
+          templateColumns="repeat(auto-fill, minmax(300px, 1fr))"
+        >
+          {data ? (
+            data.map((video, idx) => <CardVideo video={video} key={idx} />)
+          ) : (
+            <h2>No videos Yet...</h2>
+          )}
+        </SimpleGrid>
       </section>
     </>
   );
