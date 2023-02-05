@@ -118,6 +118,7 @@ const Home = () => {
   ];
 
   const [loading, setLoading] = React.useState(true);
+  const [isLoading, setIsLoading] = React.useState(false);
   const { address, daoContract, tokenContract } = useWallet();
   console.log("__🚀 tokenContract", tokenContract);
   console.log("_____🚀daoContract", daoContract);
@@ -142,6 +143,7 @@ const Home = () => {
   }
 
   const handleJoinDao = async () => {
+    setIsLoading(true);
     const DAOContractAddress = ContractAddress.DAO;
 
     if (daoContract && tokenContract) {
@@ -154,8 +156,15 @@ const Home = () => {
         DAOContractAddress,
         _joinAmount
       );
-      const daoRes = await daoContract.joinDAO("Content Creator");
-      console.log("daoRes", daoRes);
+      await tokenRes.wait();
+      console.log("🚀 tokenRes", tokenRes);
+
+      if (tokenRes) {
+        const daoRes = await daoContract.joinDAO("Content Creator");
+        console.log("daoRes", daoRes);
+      }
+
+      setIsLoading(false);
     }
   };
 
@@ -211,6 +220,7 @@ const Home = () => {
 
           <Center alignItems="center" gap={4} pt={12}>
             <Button
+              isLoading={isLoading}
               bg="#4F46E5"
               style={{
                 padding: "16px",
