@@ -7,7 +7,7 @@ import Head from "next/head";
 import {PeerDAO} from "@/typechain/PeerDAO";
 
 
-const JoinDao = () => {
+const ProposalListing = () => {
   const { address, daoContract, tokenContract } = useWallet();
 
   const [balance, setBalance] = useState(BigNumber.from(0));
@@ -22,16 +22,28 @@ const JoinDao = () => {
 
   
   async function getProposals() {
-    const ps = await daoContract?.getAllProposals();
-    console.log('proposals', proposals);
-    setProposals(ps || [])
+    console.log('getProposals:', daoContract);
+    try {
+      const ps = await daoContract?.getAllProposals();
+      console.log('proposals', ps);
+      setProposals(ps || [])
+      
+    } catch (error) {
+      console.warn(error);
+    }
   }
 
 
   useEffect(() => {
-    getProposals();
-    getBalance();
-  }, [address]);
+    if (daoContract) {
+      console.log("daoContract fetching...");
+      getProposals();
+      getBalance();
+    } else {
+      console.log("daoContract not found");
+    }
+  }, [address, daoContract, tokenContract]);
+
 
   return (
     <>
@@ -81,15 +93,12 @@ const JoinDao = () => {
           rounded="lg"
           color="gray.400"
         >
-          <ProposalListItem />
-          <ProposalListItem />
-          <ProposalListItem />
-          <ProposalListItem />
-          <ProposalListItem />
+          {proposals.map((p) => ( <ProposalListItem p={p}/> ))}
+          
         </SimpleGrid>
       </Box>
     </>
   );
 };
 
-export default JoinDao;
+export default ProposalListing;
