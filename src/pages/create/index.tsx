@@ -21,6 +21,7 @@ import {
 import { ContractAddress, LH_API_KEY } from "@/utils/constants";
 import lighthouse from "@lighthouse-web3/sdk";
 import { ethers } from "ethers";
+import { useToast } from '@chakra-ui/react'
 
 const CreateProposal = () => {
   const { address, daoContract, tokenContract } = useWallet();
@@ -29,6 +30,7 @@ const CreateProposal = () => {
   const [isUploading, setIsUploading] = useState(false);
   const [uploaded_cid, setUploaded_cid] = useState("");
   const [desc, setDesc] = useState("");
+  const toast = useToast()
 
   async function createProposal() {
     if (!uploaded_cid.length) {
@@ -37,6 +39,19 @@ const CreateProposal = () => {
     }
     applyAccessControl();
     const txn = await daoContract?.createProposal(uploaded_cid, desc);
+
+
+      toast({
+        title: 'Proposal created.',
+        description: "We've created the proposal.",
+        status: 'success',
+        duration: 9000,
+        isClosable: true,
+      })
+    
+  
+    
+    
   }
 
   const encryptionSignature = async () => {
@@ -100,7 +115,7 @@ const CreateProposal = () => {
           chain: "Hyperspace",
           method: "accessible",
           standardContractType: "Custom",
-          parameters: ["-1"],
+          parameters: ["0"],
           inputArrayType: ["uint256"],
           outputType: "bool",
           returnValueTest: {

@@ -4,7 +4,7 @@ import lighthouse from '@lighthouse-web3/sdk';
 import { useEffect, useState } from "react";
 import { PeerDAO } from "@/typechain";
 import { useWallet } from "@/context/MetamaskProvider";
-import { Box } from "@chakra-ui/react";
+import { Box, Link } from "@chakra-ui/react";
 
 
 
@@ -32,7 +32,7 @@ const ProposalDetail = () => {
 
   async function getProposals() {
     const ps = await daoContract?.getAllProposals();
-    console.log('proposals', ps);
+    console.log('proposals', ps, daoContract);
 
     const po = ps?.find(p => p.id.toNumber() === parseInt(pid as string)) 
     setProposal(po || null)
@@ -42,12 +42,14 @@ const ProposalDetail = () => {
   useEffect(() => {
     getProposals();
     
-  }, [address]);
+  }, [address, daoContract, tokenContract]);
 
 
   useEffect(() => {
     if (proposal) {
       decrypt()
+    } else {
+      console.log('no proposal');
     }
   }, [proposal])
 
@@ -108,10 +110,12 @@ const ProposalDetail = () => {
       <h2 color="white">
         Proposer: {proposal?.proposer}
       </h2>
+
       <h2 color="white">
         Description {proposal?.description}
       </h2>
 
+<Link href={fileURL}>Download </Link>
       </Box>
     </div>
   );
