@@ -1,5 +1,6 @@
 import ProposalListItem from "@/components/ProposalListItem";
 import {
+  Alert,
   Box,
   Button,
   Input,
@@ -17,14 +18,112 @@ import {
   FormErrorMessage,
   FormHelperText,
 } from "@chakra-ui/react";
+import { ContractAddress, LH_API_KEY } from "@/utils/constants";
+import lighthouse from "@lighthouse-web3/sdk";
+import { ethers } from "ethers";
 
-const JoinDao = () => {
+const CreateProposal = () => {
   const { address, daoContract, tokenContract } = useWallet();
   const [balance, setBalance] = useState(BigNumber.from(0));
 
+  const [isUploading, setIsUploading] = useState(false);
+  const [uploaded_cid, setUploaded_cid] = useState("");
+  const [desc, setDesc] = useState("");
+
   async function createProposal() {
-    const txn = await daoContract?.createProposal("", "");
+    if (!uploaded_cid.length) {
+      alert("Please upload a file");
+      return;
+    }
+
+    const txn = await daoContract?.createProposal(uploaded_cid, desc);
   }
+
+  const encryptionSignature = async () => {
+    const provider = new ethers.providers.Web3Provider(window.ethereum);
+    const signer = provider.getSigner();
+    const address = await signer.getAddress();
+    const messageRequested = (await lighthouse.getAuthMessage(address)).data
+      .message;
+    const signedMessage = await signer.signMessage(messageRequested);
+    return {
+      signedMessage: signedMessage,
+      publicKey: address,
+    };
+  };
+
+  const progressCallback = (progressData: {
+    total: number;
+    uploaded: number;
+  }) => {
+    let percentageDone = (
+      progressData?.total / progressData?.uploaded
+    )?.toFixed(2);
+    console.log(percentageDone);
+  };
+
+  const deployEncrypted = async (e: string) => {
+    console.log(e);
+    setIsUploading(true);
+    const sig = await encryptionSignature();
+    const response = await lighthouse.uploadEncrypted(
+      e,
+      sig.publicKey,
+      LH_API_KEY,
+      sig.signedMessage,
+      progressCallback
+    );
+    console.log("response", response);
+
+    setUploaded_cid(response.data.Hash);
+    setIsUploading(false)
+  };
+
+  const sign_auth_message = async () => {
+    const provider = new ethers.providers.Web3Provider(window.ethereum);
+    const signer = provider.getSigner();
+    const publicKey = (await signer.getAddress()).toLowerCase();
+    const messageRequested = (await lighthouse.getAuthMessage(publicKey)).data
+      .message;
+    const signedMessage = await signer.signMessage(messageRequested);
+    return { publicKey: publicKey, signedMessage: signedMessage };
+  };
+
+
+  const accessControl = async () => {
+    try {
+    
+      const conditions = [
+        {
+          id: 1,
+          contractAddress: ContractAddress.DAO,
+          chain: "hyperspace",
+          method: "accessible",
+          standardContractType: "",
+          parameters: [":userAddress"],
+          returnValueTest: {
+            comparator: "==",
+            value: "true",
+          },
+        },
+      ];
+
+      const aggregator = "([1])"; // 1 and 2 creates conditions
+
+      const { publicKey, signedMessage } = await sign_auth_message();
+
+      const response = await lighthouse.accessCondition(
+        publicKey,
+        uploaded_cid,
+        signedMessage,
+        conditions,
+        aggregator
+      );
+      console.log(response);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   return (
     <>
@@ -71,19 +170,25 @@ const JoinDao = () => {
 
           <FormControl mt={4} mb={4}>
             <FormLabel>Content Description</FormLabel>
-            <Input type="text" />
+            <Input
+              type="text"
+              accept="video/mp4,video/x-m4v,video/*"
+              onChange={(e) => setDesc(e.target.value)}
+            />
           </FormControl>
 
-          <FormControl flex={1}>
+          <FormControl flex={1} >
             <FormLabel>Upload Video Content</FormLabel>
-            <Input type="file" />
+            <Input type="file" onChange={(e) => deployEncrypted(e)} />
           </FormControl>
 
           <Button
             bg="#818CF8"
             color="white"
             w="100%"
+            mt={8}
             mr={3}
+            isLoading={isUploading}
             onClick={() => {
               createProposal();
             }}
@@ -96,4 +201,4 @@ const JoinDao = () => {
   );
 };
 
-export default JoinDao;
+export default CreateProposal;

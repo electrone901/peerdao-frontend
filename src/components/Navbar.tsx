@@ -12,7 +12,12 @@ import {
   Link,
   Text,
 } from "@chakra-ui/react";
+import { useWallet } from "@/context/MetamaskProvider";
+
+
 const Navbar = () => {
+  const { address, daoContract, tokenContract } = useWallet();
+
   return (
     <Box pt={4} pb={4} bg="#0F172A" color="white">
       <Container maxW={1500}>
