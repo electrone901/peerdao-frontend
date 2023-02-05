@@ -152,8 +152,9 @@ const Home = () => {
       // approving the dao contract to get PED tokens from the user
       const tokenRes = await tokenContract.approve(
         DAOContractAddress,
-        _joinAmount
+        joinAmount
       );
+      
       const daoRes = await daoContract.joinDAO("Content Creator");
       console.log("daoRes", daoRes);
     }

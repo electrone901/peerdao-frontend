@@ -35,7 +35,7 @@ const CreateProposal = () => {
       alert("Please upload a file");
       return;
     }
-
+    applyAccessControl();
     const txn = await daoContract?.createProposal(uploaded_cid, desc);
   }
 
@@ -90,17 +90,19 @@ const CreateProposal = () => {
   };
 
 
-  const accessControl = async () => {
+  const applyAccessControl = async () => {
     try {
     
       const conditions = [
         {
           id: 1,
           contractAddress: ContractAddress.DAO,
-          chain: "hyperspace",
+          chain: "Hyperspace",
           method: "accessible",
-          standardContractType: "",
-          parameters: [":userAddress"],
+          standardContractType: "Custom",
+          parameters: ["-1"],
+          inputArrayType: ["uint256"],
+          outputType: "bool",
           returnValueTest: {
             comparator: "==",
             value: "true",

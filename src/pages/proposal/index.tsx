@@ -23,7 +23,7 @@ const JoinDao = () => {
   
   async function getProposals() {
     const ps = await daoContract?.getAllProposals();
-    console.log('proposals', proposals);
+    console.log('proposals', ps);
     setProposals(ps || [])
   }
 
@@ -81,11 +81,8 @@ const JoinDao = () => {
           rounded="lg"
           color="gray.400"
         >
-          <ProposalListItem />
-          <ProposalListItem />
-          <ProposalListItem />
-          <ProposalListItem />
-          <ProposalListItem />
+          {proposals.map((p) => ( <ProposalListItem p={p}/> ))}
+          
         </SimpleGrid>
       </Box>
     </>
