@@ -36,6 +36,10 @@ const Navbar = () => {
               <Text fontSize="2xl">Proposals</Text>
             </NextLink>
 
+            <NextLink href="/create" passHref>
+              <Text fontSize="2xl">Submit Proposal</Text>
+            </NextLink>
+
             <NextLink href="/" passHref>
               <Text fontSize="2xl">Stream videos</Text>
             </NextLink>
