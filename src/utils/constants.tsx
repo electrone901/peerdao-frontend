@@ -1,0 +1,6 @@
+
+
+export const ContractAddress = {
+   DAO: "0xdeaF0f54F0E9897F53e7bFdc222419F2cEC4F5d1",
+   TOKEN: "0xb8F41783C0476e48Cf7DC468D1Fe67f57C3393E4"
+};

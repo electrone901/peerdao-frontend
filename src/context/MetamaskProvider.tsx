@@ -1,13 +1,15 @@
+import { PeerDAO, PeerToken } from "@/typechain";
+import { ContractAddress } from "@/utils/constants";
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
 const { ethers } = require("ethers");
-import { DAO_CONTRACT_ABI } from "../../Frontend Logic/DAOContractABI";
-import { TOKEN_CONTRACT_ABI } from "../../Frontend Logic/tokenContractABI";
+import { PeerDAO__factory } from "../typechain/factories/PeerDAO__factory";
+import { PeerToken__factory } from "../typechain/factories/PeerToken__factory";
 
 type MetamaskMaskProviderValues = {
   address: string | null;
-  daoContract: string | null;
-  tokenContract: string | null;
+  daoContract: PeerDAO | null;
+  tokenContract: PeerToken | null;
   setAddress: () => void;
   disconnect: () => void;
 };
@@ -30,8 +32,8 @@ export const MetamaskProvider: React.FC<{ children: React.ReactNode }> = ({
 }) => {
   const router = useRouter();
   const [address, setAddress] = React.useState<string | null>(null);
-  const [daoContract, setDaoContract] = React.useState<string | null>(null);
-  const [tokenContract, setTokenContract] = React.useState<string | null>(null);
+  const [daoContract, setDaoContract] = React.useState<PeerDAO | null>(null);
+  const [tokenContract, setTokenContract] = React.useState<PeerToken | null>(null);
   console.log({ daoContract });
   console.log({ tokenContract });
 
@@ -98,24 +100,15 @@ export const MetamaskProvider: React.FC<{ children: React.ReactNode }> = ({
     if (window.ethereum) {
       const provider = new ethers.providers.Web3Provider(window.ethereum);
       const { chainId } = await provider.getNetwork();
+      console.log('chainId', chainId);
       if (chainId == "3141") {
-        const DAOContractAddress = "0xdeaF0f54F0E9897F53e7bFdc222419F2cEC4F5d1";
-        const tokenContractAddress =
-          "0xb8F41783C0476e48Cf7DC468D1Fe67f57C3393E4";
+        const DAOContractAddress = ContractAddress.DAO;
+        const tokenContractAddress = ContractAddress.TOKEN;
         const signer = provider.getSigner();
 
-        const DAOContract = new ethers.Contract(
-          DAOContractAddress,
-          DAO_CONTRACT_ABI,
-          signer
-        );
-
-        const tokenContract = new ethers.Contract(
-          tokenContractAddress,
-          TOKEN_CONTRACT_ABI,
-          signer
-        );
-
+        const DAOContract = PeerDAO__factory.connect(DAOContractAddress, signer);
+        const tokenContract= PeerToken__factory.connect(tokenContractAddress, signer);
+        
         setDaoContract(DAOContract);
         setTokenContract(tokenContract);
       }

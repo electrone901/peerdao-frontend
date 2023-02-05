@@ -6,6 +6,7 @@ import PEDTokensForm from "@/components/PEDTokensForm";
 import CardVideo from "@/components/CardVideo";
 import { useWallet } from "../context/MetamaskProvider";
 import * as R from "ramda";
+import { ContractAddress } from "@/utils/constants";
 
 const Home = () => {
   const data = [
@@ -141,7 +142,7 @@ const Home = () => {
   }
 
   const handleJoinDao = async () => {
-    const DAOContractAddress = "0xdeaF0f54F0E9897F53e7bFdc222419F2cEC4F5d1";
+    const DAOContractAddress = ContractAddress.DAO;
 
     if (daoContract && tokenContract) {
       const _joinAmount = 50 * (10 * 18);
