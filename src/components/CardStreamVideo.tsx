@@ -13,10 +13,10 @@ import { PeerDAO } from "@/typechain";
 
 function CardStreamVideo({
   video,
-  setShowVideo,
+  onClicked,
 }: {
   video: PeerDAO.VideoStructOutput;
-  setShowVideo: any;
+  onClicked: (video: PeerDAO.VideoStructOutput) => void;
 }) {
   const [amount, setAmount] = useState(0);
   // console.log({ amount });
@@ -29,7 +29,7 @@ function CardStreamVideo({
           src="video-loading.png"
           alt="Video thumnnail"
           style={{ cursor: "pointer" }}
-          onClick={() => setShowVideo(true)}
+          onClick={() => onClicked(video)}
         />
 
         <Flex pt={2}>
