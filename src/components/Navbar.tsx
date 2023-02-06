@@ -1,7 +1,7 @@
 import React from "react";
 import Image from "next/image";
 import NextLink from "next/link";
-// import MetamaskConnectButton from "./MetamaskConnectButton";
+import MetamaskConnectButton from "./MetamaskConnectButton";
 import {
   Container,
   Button,
@@ -10,16 +10,24 @@ import {
   Flex,
   Spacer,
   Link,
+  Text,
 } from "@chakra-ui/react";
+import { useWallet } from "@/context/MetamaskProvider";
+
+
 const Navbar = () => {
+  const { address, daoContract, tokenContract } = useWallet();
+  
+  
   return (
     <Box pt={4} pb={4} bg="#0F172A" color="white">
       <Container maxW={1500}>
         <Flex>
           <Center gap={2}>
             <Image src="/logo.png" alt="logo" width={50} height={50} />
+
             <NextLink href="/" passHref>
-              <Link fontSize="2xl">PeerDao</Link>
+              <Text fontSize="2xl">PeerDao</Text>
             </NextLink>
           </Center>
 
@@ -27,22 +35,22 @@ const Navbar = () => {
 
           <Center gap={12}>
             <NextLink href="/" passHref>
-              <Link fontSize="2xl">About PeerDao</Link>
+              <Text fontSize="2xl">About PeerDao</Text>
             </NextLink>
 
             <NextLink href="/proposal" passHref>
-              <Link fontSize="2xl">Proposals</Link>
+              <Text fontSize="2xl">Proposals</Text>
             </NextLink>
 
-            <NextLink href="/" passHref>
-              <Link fontSize="2xl">Stream videos</Link>
+            <NextLink href="/create" passHref>
+              <Text fontSize="2xl">Submit Proposal</Text>
             </NextLink>
 
-            <NextLink href="/" passHref>
-              <Button color="black">Connect wallet</Button>
+            <NextLink href="/stream-videos" passHref>
+              <Text fontSize="2xl">Stream videos</Text>
             </NextLink>
 
-            {/* <MetamaskConnectButton /> */}
+            <MetamaskConnectButton />
           </Center>
         </Flex>
       </Container>

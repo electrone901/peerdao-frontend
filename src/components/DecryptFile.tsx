@@ -2,7 +2,7 @@ import { useState } from "react";
 import { ethers } from "ethers";
 import lighthouse from "@lighthouse-web3/sdk";
 
-function DecryptFile(props) {
+function DecryptFile(props: any) {
   const [fileURL, setFileURL] = useState(null);
 
   const sign_auth_message = async () => {
@@ -30,8 +30,7 @@ function DecryptFile(props) {
     const fileType = "json";
     const decrypted = await lighthouse.decryptFile(
       cid,
-      keyObject.data.key,
-      fileType
+      keyObject.data.key
     );
     console.log(decrypted);
     const url = URL.createObjectURL(decrypted);
@@ -40,7 +39,7 @@ function DecryptFile(props) {
     const res = await fetch(url);
     const data = await res.json();
     console.log("🚀 ~ file: get.tsx:44 ~ decrypt ~ data", data);
-    setFileURL(url);
+    setFileURL(url as any);
   };
 
   return (

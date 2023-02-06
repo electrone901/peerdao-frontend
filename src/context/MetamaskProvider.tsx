@@ -1,8 +1,15 @@
+import { PeerDAO, PeerToken } from "@/typechain";
+import { ContractAddress } from "@/utils/constants";
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
+const { ethers } = require("ethers");
+import { PeerDAO__factory } from "../typechain/factories/PeerDAO__factory";
+import { PeerToken__factory } from "../typechain/factories/PeerToken__factory";
 
 type MetamaskMaskProviderValues = {
   address: string | null;
+  daoContract: PeerDAO | null;
+  tokenContract: PeerToken | null;
   setAddress: () => void;
   disconnect: () => void;
 };
@@ -25,11 +32,19 @@ export const MetamaskProvider: React.FC<{ children: React.ReactNode }> = ({
 }) => {
   const router = useRouter();
   const [address, setAddress] = React.useState<string | null>(null);
+  const [daoContract, setDaoContract] = React.useState<PeerDAO | null>(null);
+  const [tokenContract, setTokenContract] = React.useState<PeerToken | null>(null);
+  console.log({ daoContract });
+  console.log({ tokenContract });
 
   React.useEffect(() => {
-
-    if (typeof window.ethereum !== "undefined" && window.ethereum && window.ethereum.selectedAddress) {
+    if (
+      typeof window.ethereum !== "undefined" &&
+      window.ethereum &&
+      window.ethereum.selectedAddress
+    ) {
       setAddress(window.ethereum.selectedAddress);
+      handleSetContracts();
     }
   }, []);
 
@@ -70,8 +85,10 @@ export const MetamaskProvider: React.FC<{ children: React.ReactNode }> = ({
     }
   }, [router]);
 
-  const handleSetAddress = () => {
+  const handleSetAddress = async () => {
     if (window.ethereum) {
+      console.log('handleSetAddress with window.ethereum')
+      handleSetContracts();
       window.ethereum
         .request({ method: "eth_requestAccounts" })
         .then((result: string[]) => {
@@ -80,20 +97,43 @@ export const MetamaskProvider: React.FC<{ children: React.ReactNode }> = ({
     }
   };
 
+  const handleSetContracts = async () => {
+    if (window.ethereum) {
+      console.log('handleSetContracts with window.ethereum')
+      const provider = new ethers.providers.Web3Provider(window.ethereum);
+      const { chainId } = await provider.getNetwork();
+      console.log('chainId', chainId);
+      if (chainId == "3141") {
+        const DAOContractAddress = ContractAddress.DAO;
+        const tokenContractAddress = ContractAddress.TOKEN;
+        const signer = provider.getSigner();
+
+        const DAOContract = PeerDAO__factory.connect(DAOContractAddress, signer);
+        const tokenContract= PeerToken__factory.connect(tokenContractAddress, signer);
+        
+        console.log('setting contract', { DAOContract, tokenContract });
+        setDaoContract(DAOContract);
+        setTokenContract(tokenContract);
+      }
+    }
+  };
+
   const handleDisconnect = () => {
     setAddress(null);
   };
 
-  const[loaded, setLoaded] = useState(false);
+  const [loaded, setLoaded] = useState(false);
 
   useEffect(() => {
     setLoaded(true);
-  }, [])
+  }, []);
 
   return (
     <MetamaskContext.Provider
       value={{
         address,
+        daoContract,
+        tokenContract,
         setAddress: handleSetAddress,
         disconnect: handleDisconnect,
       }}

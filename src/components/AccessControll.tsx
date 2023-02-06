@@ -2,7 +2,7 @@ import { useState } from "react";
 import { ethers } from "ethers";
 import lighthouse from "@lighthouse-web3/sdk";
 
-function AccessControll({ cid }) {
+function AccessControll({ cid }: {cid: string}) {
   console.log("🚀 ~ file: AccessControll.tsx:6 ~ AccessControll ~ cid", cid);
 
   const sign_auth_message = async () => {

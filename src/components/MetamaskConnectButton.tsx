@@ -42,7 +42,8 @@ const MetamaskConnectButton: React.FC<{
       <Button
         onClick={disconnect}
         style={style}
-        colorScheme={window.ethereum.isMetaMask ? "blue" : "blue"}
+        colorScheme={window.ethereum.isMetaMask ? "gray" : "gray"}
+        color="black"
       >
         {address}
       </Button>

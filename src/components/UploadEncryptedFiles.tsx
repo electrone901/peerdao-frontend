@@ -2,7 +2,7 @@ import React from "react";
 import { ethers } from "ethers";
 import lighthouse from "@lighthouse-web3/sdk";
 
-function UploadEncryptedFiles({ setCid }) {
+function UploadEncryptedFiles({ setCid }: any) {
   const API_KEY = "5f1536db-bc5f-44b0-8e3c-5a2972e88ed4";
 
   const encryptionSignature = async () => {
@@ -22,8 +22,10 @@ function UploadEncryptedFiles({ setCid }) {
     total: number;
     uploaded: number;
   }) => {
+
+    progressData.total / progressData.uploaded
     let percentageDone =
-      100 - (progressData?.total / progressData?.uploaded)?.toFixed(2);
+      100 - (progressData.total / progressData.uploaded);
     console.log(percentageDone);
   };
 
@@ -32,7 +34,7 @@ function UploadEncryptedFiles({ setCid }) {
   ) => {
     const sig = await encryptionSignature();
     const response = await lighthouse.uploadEncrypted(
-      e,
+      e as string,
       sig.publicKey,
       API_KEY,
       sig.signedMessage,
