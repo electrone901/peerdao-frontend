@@ -15,7 +15,7 @@ import {
 const { ethers } = require("ethers");
 import { useWallet } from "../context/MetamaskProvider";
 
-function PEDTokensForm(props) {
+function PEDTokensForm(props: any) {
   const [amount, setAmount] = useState(0);
   const { daoContract, tokenContract } = useWallet();
 
@@ -60,7 +60,7 @@ function PEDTokensForm(props) {
                 <Input
                   type="number"
                   onChange={(e) => {
-                    setAmount(e.target.value);
+                    setAmount(e.target.value as any);
                   }}
                   placeholder="Type the required amount here"
                 />

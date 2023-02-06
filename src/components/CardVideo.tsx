@@ -10,7 +10,7 @@ import {
   Avatar,
 } from "@chakra-ui/react";
 
-function CardVideo({ video }) {
+function CardVideo({ video }: {video: any}) {
   const [amount, setAmount] = useState(0);
   // console.log({ amount });
   return (

@@ -94,7 +94,7 @@ const ProposalListing = () => {
           color="gray.400"
         >
           {proposals.map((p, index) => ( <ProposalListItem p={p} key={index} /> ))}
-          
+
         </SimpleGrid>
       </Box>
     </>

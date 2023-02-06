@@ -19,7 +19,7 @@ const Dashboard = () => {
         <p>Who is going to have access to this: </p>
         <strong>QmSm12h26jZGrgbVXxaeTf1XPULEAYZupcFwfoMMTNec3S</strong>
         {/* {cid && <AccessControll cid={cid} />} */}
-        <AccessControll cid={cid} />
+        <AccessControll cid={cid || ""} />
         <DecryptFile />
         <MetamaskConnectButton />
       </Container>

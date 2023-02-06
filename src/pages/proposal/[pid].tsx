@@ -86,7 +86,7 @@ const ProposalDetail = () => {
     */
 
     const decrypted = await lighthouse.decryptFile(cid, keyObject.data.key);
-    console.log(decrypted);
+    console.log('decrypted', decrypted);
     /*
       Response: blob
     */
@@ -100,8 +100,8 @@ const ProposalDetail = () => {
   return (
     <div className="">
      
-      <video controls name="media" width="100%">
-        <source src={fileURL || ""} type="video/webm" />
+      <video controls width="100%" src={fileURL}>
+        
       </video>
 
       <Box bg="#1E293B" color="white" p={4}>

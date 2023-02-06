@@ -144,7 +144,7 @@ const Home = () => {
   }
 
   const toJoinDAO = async () => {
-    const daoRes = await daoContract.joinDAO("x", {
+    const daoRes = await daoContract?.joinDAO("x", {
       gasLimit: 2317863,
     });
     console.log("daoRes", daoRes);

@@ -196,7 +196,7 @@ const CreateProposal = () => {
 
           <FormControl flex={1} >
             <FormLabel>Upload Video Content</FormLabel>
-            <Input type="file" onChange={(e) => deployEncrypted(e)} />
+            <Input type="file" onChange={(e) => deployEncrypted(e as any)} />
           </FormControl>
 
           <Button

@@ -16,9 +16,7 @@ const ProposalListItem = ({ p }: { p: PeerDAO.ProposalStructOutput }) => {
     <Box boxShadow="md" p="4" rounded="md" bg="white">
 
       <Link href={"/proposal/" + p.id}>
-
-
-      <Image src="video.png" alt="thumbnail" rounded="md" w={"100vh"} mb={1} />
+      <Image src="video-loading.png" alt="thumbnail" rounded="md" w={"100vh"} mb={1} />
 
       
       {/* <video controls autoplay name="media">

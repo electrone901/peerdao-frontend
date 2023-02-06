@@ -87,6 +87,7 @@ export const MetamaskProvider: React.FC<{ children: React.ReactNode }> = ({
 
   const handleSetAddress = async () => {
     if (window.ethereum) {
+      console.log('handleSetAddress with window.ethereum')
       handleSetContracts();
       window.ethereum
         .request({ method: "eth_requestAccounts" })
@@ -98,6 +99,7 @@ export const MetamaskProvider: React.FC<{ children: React.ReactNode }> = ({
 
   const handleSetContracts = async () => {
     if (window.ethereum) {
+      console.log('handleSetContracts with window.ethereum')
       const provider = new ethers.providers.Web3Provider(window.ethereum);
       const { chainId } = await provider.getNetwork();
       console.log('chainId', chainId);
@@ -109,6 +111,7 @@ export const MetamaskProvider: React.FC<{ children: React.ReactNode }> = ({
         const DAOContract = PeerDAO__factory.connect(DAOContractAddress, signer);
         const tokenContract= PeerToken__factory.connect(tokenContractAddress, signer);
         
+        console.log('setting contract', { DAOContract, tokenContract });
         setDaoContract(DAOContract);
         setTokenContract(tokenContract);
       }
