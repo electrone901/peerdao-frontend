@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import Image from "next/image";
 import {
   Card,
   CardBody,
@@ -7,10 +6,18 @@ import {
   Center,
   Spacer,
   Flex,
+  Image,
   Avatar,
 } from "@chakra-ui/react";
+import { PeerDAO } from "@/typechain";
 
-function CardStreamVideo({ video, setShowVideo }: any) {
+function CardStreamVideo({
+  video,
+  setShowVideo,
+}: {
+  video: PeerDAO.VideoStructOutput;
+  setShowVideo: any;
+}) {
   const [amount, setAmount] = useState(0);
   // console.log({ amount });
   return (
@@ -18,10 +25,10 @@ function CardStreamVideo({ video, setShowVideo }: any) {
       <CardBody>
         <Image
           width={800}
-          height={600}
-          src={video.image}
-          alt="Green double couch with wooden legs"
-          style={{ cursor: "pointer"}}
+          height={250}
+          src="video-loading.png"
+          alt="Video thumnnail"
+          style={{ cursor: "pointer" }}
           onClick={() => setShowVideo(true)}
         />
 
@@ -33,19 +40,20 @@ function CardStreamVideo({ video, setShowVideo }: any) {
                 fontWeight: "400",
                 fontSize: "16px",
                 lineHeight: "24px",
+                width: "200px",
                 color: "#000000",
+                overflow: "hidden",
+                textAlign: "left",
+                whiteSpace: "nowrap",
+                textOverflow: "ellipsis",
               }}
             >
-              {video.wallet}
+              {video.poster}
             </Text>
-            <Image
-              src="/check-icon.png"
-              alt="check-icon.png"
-              width={20}
-              height={20}
-            />
           </Center>
         </Flex>
+
+        <Text mt={2}>{video.description}</Text>
 
         <Flex>
           <Text
@@ -83,7 +91,7 @@ function CardStreamVideo({ video, setShowVideo }: any) {
               lineHeight: "20px",
             }}
           >
-            {video.floor}
+            {"0.1 $PED"}
           </Text>
           <Spacer />
           <Text
@@ -95,7 +103,7 @@ function CardStreamVideo({ video, setShowVideo }: any) {
               lineHeight: "20px",
             }}
           >
-            {video.volume}
+            N/A
           </Text>
         </Flex>
       </CardBody>

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import NextLink from "next/link";
 import MetamaskConnectButton from "./MetamaskConnectButton";
@@ -14,14 +14,34 @@ import {
 } from "@chakra-ui/react";
 import { useWallet } from "@/context/MetamaskProvider";
 
+import { BigNumber, utils } from "ethers";
 
 const Navbar = () => {
   const { address, daoContract, tokenContract } = useWallet();
-  
+  const [balance, setBalance] = useState(BigNumber.from(0));
+
+  async function getBalance() {
+    const b =
+      (await tokenContract?.balanceOf(address || "0x0000000000000000")) ||
+      BigNumber.from(0);
+    setBalance(b);
+  }
+
+
+  useEffect(() => {
+    if (tokenContract) {
+      console.log("getting balance...");
+      getBalance();
+    } else {
+      console.log("daoContract not found");
+    }
+  }, [address, tokenContract]);
+
+
   
   return (
     <Box pt={4} pb={4} bg="#0F172A" color="white">
-      <Container maxW={1500}>
+      <Container maxW={1800}>
         <Flex>
           <Center gap={2}>
             <Image src="/logo.png" alt="logo" width={50} height={50} />
@@ -33,7 +53,7 @@ const Navbar = () => {
 
           <Spacer />
 
-          <Center gap={12}>
+          <Center gap={10}>
             <NextLink href="/" passHref>
               <Text fontSize="2xl">About PeerDao</Text>
             </NextLink>
@@ -50,6 +70,9 @@ const Navbar = () => {
               <Text fontSize="2xl">Stream videos</Text>
             </NextLink>
 
+            <Box width={100}>
+              <p>$PED: {utils.formatEther(balance)}</p>
+            </Box>
             <MetamaskConnectButton />
           </Center>
         </Flex>

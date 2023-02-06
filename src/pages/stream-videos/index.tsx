@@ -1,41 +1,44 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Text, Heading, Center, Flex, SimpleGrid } from "@chakra-ui/react";
 import ReactPlayer from 'react-player'
 import CardStreamVideo from "@/components/CardStreamVideo";
 
-const data = [
-  {
-    image: "/p1.png",
-    avatar: "ysong.png",
-    wallet: "3j98t1W97Xl0...",
-    floor: "0.14 PED",
-    volume: "1,054 PED",
-  },
-  {
-    image: "/ysong.png",
-    avatar: "ysong.png",
-    wallet: "3j98t1W97Xl0...",
-    floor: "0.14 PED",
-    volume: "1,054 PED",
-  },
-  {
-    image: "/p1.png",
-    avatar: "ysong.png",
-    wallet: "3j98t1W97Xl0...",
-    floor: "0.14 PED",
-    volume: "1,054 PED",
-  },
-  {
-    image: "/ysong.png",
-    avatar: "ysong.png",
-    wallet: "3j98t1W97Xl0...",
-    floor: "0.14 PED",
-    volume: "1,054 PED",
-  }
-];
+import { BigNumber, utils } from "ethers";
+import {PeerDAO} from "@/typechain/PeerDAO";
+import { useWallet } from "@/context/MetamaskProvider";
+
+
 
 const StreamVideo = () => {
   const [showVideo, setShowVideo] = useState(false);
+
+  const { address, daoContract, tokenContract } = useWallet();
+
+  const [videos, setVideos] = useState<PeerDAO.VideoStructOutput[]>([]);
+
+  async function getProposals() {
+    console.log('getProposals:', daoContract);
+    try {
+      const ps = await daoContract?.getAllVideos();
+      console.log('proposals', ps);
+      setVideos(ps || [])
+      
+    } catch (error) {
+      console.warn(error);
+    }
+  }
+
+
+  useEffect(() => {
+    if (daoContract) {
+      getProposals();
+    } else {
+      console.log("daoContract not found");
+    }
+  }, [address, daoContract, tokenContract]);
+
+
+
   return (
     <div className="streamvideo">
       <section className="popular_videos">
@@ -63,10 +66,10 @@ const StreamVideo = () => {
         <SimpleGrid
           p={10}
           spacing={6}
-          templateColumns="repeat(auto-fill, minmax(300px, 1fr))"
+          templateColumns="repeat(auto-fill, minmax(400px, 1fr))"
         >
-          {data ? (
-            data.map((video, idx) => <CardStreamVideo video={video} key={idx} setShowVideo={setShowVideo} />)
+          {videos ? (
+            videos.map((video, idx) => <CardStreamVideo video={video} key={idx} setShowVideo={setShowVideo} />)
           ) : (
             <h2>No videos Yet...</h2>
           )}

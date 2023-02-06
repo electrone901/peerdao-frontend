@@ -37,10 +37,10 @@ const CreateProposal = () => {
       alert("Please upload a file");
       return;
     }
+    setIsUploading(true)
     applyAccessControl();
     const txn = await daoContract?.createProposal(uploaded_cid, desc);
-
-
+    setIsUploading(false)
       toast({
         title: 'Proposal created.',
         description: "We've created the proposal.",

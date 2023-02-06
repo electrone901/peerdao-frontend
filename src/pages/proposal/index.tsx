@@ -10,17 +10,8 @@ import {PeerDAO} from "@/typechain/PeerDAO";
 const ProposalListing = () => {
   const { address, daoContract, tokenContract } = useWallet();
 
-  const [balance, setBalance] = useState(BigNumber.from(0));
   const [proposals, setProposals] = useState<PeerDAO.ProposalStructOutput[]>([]);
 
-  async function getBalance() {
-    const b =
-      (await tokenContract?.balanceOf(address || "0x0000000000000000")) ||
-      BigNumber.from(0);
-    setBalance(b);
-  }
-
-  
   async function getProposals() {
     console.log('getProposals:', daoContract);
     try {
@@ -38,7 +29,6 @@ const ProposalListing = () => {
     if (daoContract) {
       console.log("daoContract fetching...");
       getProposals();
-      getBalance();
     } else {
       console.log("daoContract not found");
     }
@@ -78,11 +68,7 @@ const ProposalListing = () => {
         </h2>
 
         <p>
-          You current PED balance is {utils.formatEther(balance)}
-        </p>
-
-        <p>
-        proposals # {proposals.length}
+        Number of proposals: {proposals.length}
         </p>
 
         <SimpleGrid

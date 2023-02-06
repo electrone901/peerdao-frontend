@@ -21,14 +21,14 @@ const Home = () => {
       image: "/ysong.png",
       avatar: "ysong.png",
       wallet: "3j98t1W97Xl0...",
-      floor: "0.14 PED",
+      floor: "0.1 PED",
       volume: "1,054 PED",
     },
     {
       image: "/p1.png",
       avatar: "ysong.png",
       wallet: "3j98t1W97Xl0...",
-      floor: "0.14 PED",
+      floor: "0.04 PED",
       volume: "1,054 PED",
     },
     {
@@ -37,84 +37,7 @@ const Home = () => {
       wallet: "3j98t1W97Xl0...",
       floor: "0.14 PED",
       volume: "1,054 PED",
-    },
-    {
-      image: "/p1.png",
-      avatar: "ysong.png",
-      wallet: "3j98t1W97Xl0...",
-      floor: "0.14 PED",
-      volume: "1,054 PED",
-    },
-    {
-      image: "/ysong.png",
-      avatar: "ysong.png",
-      wallet: "3j98t1W97Xl0...",
-      floor: "0.14 PED",
-      volume: "1,054 PED",
-    },
-    {
-      image: "/p1.png",
-      avatar: "ysong.png",
-      wallet: "3j98t1W97Xl0...",
-      floor: "0.14 PED",
-      volume: "1,054 PED",
-    },
-    {
-      image: "/ysong.png",
-      avatar: "ysong.png",
-      wallet: "3j98t1W97Xl0...",
-      floor: "0.14 PED",
-      volume: "1,054 PED",
-    },
-    {
-      image: "/p1.png",
-      avatar: "ysong.png",
-      wallet: "3j98t1W97Xl0...",
-      floor: "0.14 PED",
-      volume: "1,054 PED",
-    },
-    {
-      image: "/ysong.png",
-      avatar: "ysong.png",
-      wallet: "3j98t1W97Xl0...",
-      floor: "0.14 PED",
-      volume: "1,054 PED",
-    },
-    {
-      image: "/p1.png",
-      avatar: "ysong.png",
-      wallet: "3j98t1W97Xl0...",
-      floor: "0.14 PED",
-      volume: "1,054 PED",
-    },
-    {
-      image: "/ysong.png",
-      avatar: "ysong.png",
-      wallet: "3j98t1W97Xl0...",
-      floor: "0.14 PED",
-      volume: "1,054 PED",
-    },
-    {
-      image: "/p1.png",
-      avatar: "ysong.png",
-      wallet: "3j98t1W97Xl0...",
-      floor: "0.14 PED",
-      volume: "1,054 PED",
-    },
-    {
-      image: "/ysong.png",
-      avatar: "ysong.png",
-      wallet: "3j98t1W97Xl0...",
-      floor: "0.14 PED",
-      volume: "1,054 PED",
-    },
-    {
-      image: "/p1.png",
-      avatar: "ysong.png",
-      wallet: "3j98t1W97Xl0...",
-      floor: "0.14 PED",
-      volume: "1,054 PED",
-    },
+    }
   ];
 
   const [loading, setLoading] = React.useState(true);
@@ -145,7 +68,7 @@ const Home = () => {
 
   const toJoinDAO = async () => {
     const daoRes = await daoContract?.joinDAO("x", {
-      gasLimit: 2317863,
+      gasLimit: 8317863,
     });
     console.log("daoRes", daoRes);
   };
@@ -158,9 +81,9 @@ const Home = () => {
     const DAOContractAddress = ContractAddress.DAO;
 
     if (daoContract && tokenContract) {
-      const _joinAmount = 50 * (10 * 18);
+      const _joinAmount = 50 * (10 ** 18);
       const joinAmount = BigInt(_joinAmount);
-
+      console.log("tokenContract.approve", tokenContract, DAOContractAddress, joinAmount.toString());
       // approving the dao contract to get PED tokens from the user
       const tokenRes = await tokenContract.approve(
         DAOContractAddress,
